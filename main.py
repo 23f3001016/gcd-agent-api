@@ -1,21 +1,19 @@
 from fastapi import FastAPI, Query
-from mangum import Mangum
 import math
 import logging
 
 app = FastAPI()
 
-# Logging
 logging.basicConfig(level=logging.INFO)
 
 @app.get("/task")
-def run_task(q: str = Query(..., description="Natural-language coding task")):
+def run_task(q: str = Query(...)):
     logging.info(f"Received task: {q}")
 
-    agent_name = "copilot-cli"  # Simulated agent
+    agent_name = "copilot-cli"  # simulated agent
     output = ""
 
-    # Simple “AI agent simulation”
+    # Only simulate GCD task
     if "greatest common divisor" in q.lower():
         output = str(math.gcd(204, 562))
     else:
@@ -29,6 +27,3 @@ def run_task(q: str = Query(..., description="Natural-language coding task")):
         "output": output,
         "email": "23f3001016@ds.study.iitm.ac.in"
     }
-
-# Adapter for Vercel serverless
-handler = Mangum(app)
