@@ -3,6 +3,6 @@
     { "src": "Dockerfile", "use": "@vercel/docker" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/" }
+    { "src": "/(.*)", "dest": "/main.py" }
   ]
 }

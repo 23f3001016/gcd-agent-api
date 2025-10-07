@@ -1,22 +1,21 @@
-# Use official lightweight Python image
+# Base Python image
 FROM python:3.11-slim
-
-# Create a non-root user for security
-RUN useradd -m appuser
-USER appuser
 
 # Set working directory
 WORKDIR /app
 
-# Copy and install dependencies
-COPY --chown=appuser:appuser requirements.txt .
+# Copy dependencies
+COPY requirements.txt .
+
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app files
-COPY --chown=appuser:appuser . .
+# Copy project files
+COPY . .
 
-# Expose port 7860 (recommended)
-EXPOSE 7860
+# Expose port (Vercel uses 8080 internally)
+EXPOSE 8080
 
-# Start FastAPI app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]
+# Start FastAPI app from main.py
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+
