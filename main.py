@@ -1,10 +1,20 @@
 from fastapi import FastAPI, Query
 import math
 import logging
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 logging.basicConfig(level=logging.INFO)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],       # Allow all origins (for testing)
+    allow_methods=["GET"],     # Allow GET requests
+    allow_headers=["*"],
+    expose_headers=["*"]       # Allow all headers
+)
+
 
 @app.get("/task")
 def run_task(q: str = Query(...)):
