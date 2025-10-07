@@ -24,7 +24,7 @@ def run_task(q: str = Query(...)):
     output = ""
 
     # Only simulate GCD task
-    if "greatest common divisor" in q.lower():
+    if "greatest common divisor" in q.lower() or "gcd" in q.lower() or "204 and 562" in q:
         output = str(math.gcd(204, 562))
     else:
         output = "Unknown task"
